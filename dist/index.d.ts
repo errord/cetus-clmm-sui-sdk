@@ -3577,7 +3577,7 @@ declare class TransactionUtil {
         currentPool: Pool;
     }): Promise<SwapParams>;
     static syncBuildCoinInputForAmount(sdk: CetusClmmSDK, tx: TransactionBlock, amount: bigint, coinType: string, buildVector?: boolean): Promise<TransactionObjectArgument | undefined>;
-    static buildCoinForAmount(tx: TransactionBlock, allCoins: CoinAsset[], amount: bigint, coinType: string, buildVector?: boolean, fixAmount?: boolean): BuildCoinResult;
+    static buildCoinForAmount(tx: TransactionBlock, allCoins: CoinAsset[], amount: bigint, coinType: string, buildVector?: boolean, fixAmount?: boolean, checkAmountTotal = true): BuildCoinResult;
     private static buildCoin;
     private static buildZeroValueCoin;
     static buildCoinForAmountInterval(tx: TransactionBlock, allCoins: CoinAsset[], amounts: CoinInputInterval, coinType: string, buildVector?: boolean): BuildCoinResult;

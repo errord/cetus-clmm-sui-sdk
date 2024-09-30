@@ -3130,13 +3130,13 @@ var _TransactionUtil = class {
     const primaryCoinInput = _TransactionUtil.buildCoinForAmount(tx, allCoins, amount, coinType, buildVector).targetCoin;
     return primaryCoinInput;
   }
-  static buildCoinForAmount(tx, allCoins, amount, coinType, buildVector = true, fixAmount = false) {
+  static buildCoinForAmount(tx, allCoins, amount, coinType, buildVector = true, fixAmount = false, checkAmountTotal = true) {
     const coinAssets = CoinAssist.getCoinAssets(coinType, allCoins);
     if (amount === BigInt(0) && coinAssets.length === 0) {
       return _TransactionUtil.buildZeroValueCoin(allCoins, tx, coinType, buildVector);
     }
     const amountTotal = CoinAssist.calculateTotalBalance(coinAssets);
-    if (amountTotal < amount) {
+    if (checkAmountTotal && amountTotal < amount) {
       throw new ClmmpoolsError(`The amount(${amountTotal}) is Insufficient balance for ${coinType} , expect ${amount} `, "InsufficientBalance" /* InsufficientBalance */);
     }
     return _TransactionUtil.buildCoin(tx, allCoins, coinAssets, amount, coinType, buildVector, fixAmount);
